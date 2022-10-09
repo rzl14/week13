@@ -1,0 +1,15 @@
+class Solution {
+public:
+    int ne[100010];
+    string longestPrefix(string s) {
+        memset(ne, -1, sizeof ne);
+        for (int i = 1, j = -1; i < s.size(); i ++) {
+            while(j != -1 && s[i] != s[j + 1]) j = ne[j];
+            if (s[i] == s[j + 1]) j += 1;
+            ne[i] = j;
+            // cout << i << j << ne[i] << endl;
+        }
+        string ans(s, 0, ne[s.size() - 1] + 1);
+        return ans;
+    }
+};

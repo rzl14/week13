@@ -1,0 +1,20 @@
+class Solution {
+public:
+    int quick_sort(vector<int>& nums, int left, int right, int k) {
+        if (left == right) return nums[left];
+        int l = left, r = right, mid_num = nums[l];
+        while (l < r) {
+            while (l < r && nums[r] >= mid_num) r --;
+            while (l < r && nums[l] <= mid_num) l ++;
+            swap(nums[l], nums[r]);
+        }
+        swap(nums[l], nums[left]);
+        if (l == k) return nums[l];
+        if (l > k) return quick_sort(nums, left, l - 1, k);
+        return quick_sort(nums, l + 1, right, k);
+    }
+    int findKthLargest(vector<int>& nums, int k) {
+        k = nums.size() - k;
+        return quick_sort(nums, 0, nums.size() - 1, k);
+    }
+};

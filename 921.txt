@@ -1,0 +1,12 @@
+class Solution {
+public:
+    char stk[1001];
+    int tt = -1;
+    int minAddToMakeValid(string s) {
+        for (int i = 0; i < s.size(); i ++) {
+            if (tt < 0 || stk[tt] == ')' || s[i] == '(') stk[++ tt] = s[i];
+            else tt --;
+        }
+        return tt + 1;
+    }
+};

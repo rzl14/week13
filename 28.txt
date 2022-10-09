@@ -1,0 +1,19 @@
+class Solution {
+public:
+    int ne[10010];
+    int strStr(string haystack, string needle) {
+        memset(ne, -1, sizeof ne);
+        for (int i = 1, j = -1; i < needle.size(); i ++) {
+            while (j != -1 && needle[j + 1] != needle[i]) j = ne[j];
+            if (needle[j + 1] == needle[i]) j ++;
+            ne[i] = j;
+        }
+        for (int i = 0, j = -1; i < haystack.size(); i ++) {
+            while (j != -1 && haystack[i] != needle[j + 1]) j = ne[j];
+            if (haystack[i] == needle[j + 1]) j ++;
+            // cout << j << needle.size() << endl;
+            if (j + 1 == needle.size()) return i - needle.size() + 1;
+        }
+        return -1;
+    }
+};

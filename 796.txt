@@ -1,0 +1,21 @@
+class Solution {
+public:
+    int ne[102];
+    bool rotateString(string s, string goal) {
+        if (s.size() != goal.size()) return false;
+        s += s;
+        memset(ne, -1, sizeof ne);
+        for (int i = 1, j = -1; i < goal.size(); i ++) {
+            while (j != -1 && goal[j + 1] != goal[i]) j = ne[j];
+            if (goal[j + 1] == goal[i]) j ++;
+            ne[i] = j;
+        }
+        for (int i = 0, j = -1; i < s.size(); i ++) {
+            // cout << i << "  " << j << endl;
+            while (j != -1 && s[i] != goal[j + 1]) j = ne[j];
+            if (s[i] == goal[j + 1]) j += 1;
+            if (j + 1 == goal.size()) return true;
+        }
+        return false;
+    }
+};

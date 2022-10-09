@@ -1,0 +1,22 @@
+class Solution {
+public:
+    unsigned long long int N[10] = {1, 13331};
+    unsigned long long int hash[100010];
+    unordered_map<unsigned long long int, int> a;
+    vector<string> ans;
+    string aa;
+    vector<string> findRepeatedDnaSequences(string s) {
+        for (int i = 2; i < 10; i ++) N[i] = N[i - 1] * 13331;
+        for (int i = 0; i < 10; i ++) hash[9] += s[i] * N[9 - i];
+        a[hash[9]] = 1;
+        for (int i = 10; i < s.size(); i ++) {
+            hash[i] = (hash[i - 1] - s[i - 10] * N[9]) * 13331 + s[i];
+            if (a[hash[i]] == 1) {
+                aa = s.substr(i - 9, 10);
+                ans.push_back(aa);
+            }
+            a[hash[i]] ++;
+        }
+        return ans;;
+    }
+};

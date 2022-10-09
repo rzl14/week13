@@ -1,0 +1,26 @@
+class Solution {
+public:
+    int ne[10010];
+    int repeatedStringMatch(string a, string b) {
+        memset(ne, -1, sizeof ne);
+        int cnt = 1;
+        for (int  i = 1, j = -1; i < b.size(); i ++) {
+            while (j != -1 && b[j + 1] != b[i]) j = ne[j];
+            if (b[j + 1] == b[i]) j += 1;
+            ne[i] = j;
+        }
+        for (int i = 0, j = -1; ; i ++) {
+            // cout << i << "  " << j << endl;
+            if (i == a.size()) {
+                // if (j == -1) return -1;
+                i = 0;
+                cnt ++;
+                if (cnt * a.size() - a.size() - a.size() > b.size()) return -1;
+            }
+            while (j != -1 && b[j + 1] != a[i]) j = ne[j];
+            if (b[j + 1] == a[i]) j += 1;
+            if (j + 1 == b.size()) return cnt;
+        }
+        return -1;
+    }
+};

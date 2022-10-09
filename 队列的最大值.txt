@@ -1,0 +1,33 @@
+class MaxQueue {
+public:
+    int q1[10010], h = 0, t = -1;       // 单调队列
+    int q2[10010], hh = 0, tt = -1;     // 全部数字队列
+    MaxQueue() {
+
+    }
+    
+    int max_value() {
+        if (tt < hh) return -1;
+        return q1[h];
+    }
+    
+    void push_back(int value) {
+        while(t >= h && q1[t] < value) t --;
+        q1[++ t] = value;
+        q2[++ tt] = value;
+    }
+    
+    int pop_front() {
+        if (tt < hh) return -1;
+        if (q1[h] == q2[hh]) h ++;
+        return q2[hh ++];
+    }
+};
+
+/**
+ * Your MaxQueue object will be instantiated and called as such:
+ * MaxQueue* obj = new MaxQueue();
+ * int param_1 = obj->max_value();
+ * obj->push_back(value);
+ * int param_3 = obj->pop_front();
+ */
